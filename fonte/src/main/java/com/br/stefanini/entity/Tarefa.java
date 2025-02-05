@@ -26,7 +26,7 @@ public class Tarefa {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "STATUS", nullable = false)
     private Status status;
 
