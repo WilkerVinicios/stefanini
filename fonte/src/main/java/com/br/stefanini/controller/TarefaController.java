@@ -17,12 +17,12 @@ public class TarefaController {
         this.tarefaService = tarefaService;
     }
 
-    @GetMapping("/listarTarefas")
+    @GetMapping("/listar")
     public List<TarefaDTO> listarTarefas() {
         return tarefaService.listarTarefas();
     }
 
-    @GetMapping("/listarTarefas/{id}")
+    @GetMapping("/listar/{id}")
     public TarefaDTO buscarTarefaPorId(@PathVariable Long id) {
         return tarefaService.buscarPorId(id);
     }

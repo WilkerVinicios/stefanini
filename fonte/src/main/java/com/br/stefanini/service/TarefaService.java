@@ -23,6 +23,9 @@ public class TarefaService {
     }
 
     public List<TarefaDTO> listarTarefas() {
+        if (tarefaRepository.findAll().isEmpty()) {
+            throw new NotFoundException("Nenhuma tarefa cadastrada!");
+        }
         return tarefaRepository.findAll().stream().map(mapper::toDTO).toList();
     }
 
