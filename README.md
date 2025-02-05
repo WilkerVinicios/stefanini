@@ -176,3 +176,6 @@ src/
          │   └── migration/          # Scripts Flyway para migrações do banco
          └── application.properties  # Configurações da aplicação
 ```
+## Video de Apresentação do funcionamento da API.
+
+https://drive.google.com/file/d/1PYD8D_dHD3R7snvgd2HLrgU6ucTEkcuE/view?usp=drive_link
