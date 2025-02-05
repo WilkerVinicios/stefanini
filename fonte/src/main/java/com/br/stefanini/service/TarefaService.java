@@ -22,27 +22,42 @@ public class TarefaService {
         this.mapper = mapper;
     }
 
-
     public List<TarefaDTO> listarTarefas() {
         return tarefaRepository.findAll().stream().map(mapper::toDTO).toList();
     }
 
     public void salvarTarefa(TarefaDTO tarefa) {
         if (tarefa.getId() != null) {
-            throw new BadRequestException("Id não pode ser informado!");
+            throw new BadRequestException("Id não pode ser informado ao salvar!");
         }
         tarefaRepository.save(mapper.toEntity(tarefa));
     }
 
-    public void atualizarTarefa(Long id) {
+    public TarefaDTO buscarPorId(Long id) {
+        return mapper.toDTO(buscarTarefaPorId(id));
+    }
+
+    public void editarTarefa(Long id, TarefaDTO tarefaDto) {
+        tarefaExiste(id);
         final var tarefa = buscarTarefaPorId(id);
+        tarefa.setTitulo(tarefaDto.getTitulo());
+        tarefa.setDescricao(tarefaDto.getDescricao());
+        tarefa.setStatus(tarefaDto.getStatus());
+        tarefaRepository.save(tarefa);
     }
 
     public void excluirTarefa(Long id) {
+        tarefaExiste(id);
         tarefaRepository.deleteById(id);
     }
 
     private Tarefa buscarTarefaPorId(Long id) {
         return tarefaRepository.findById(id).orElseThrow(() -> new NotFoundException("Tarefa não encontrada!"));
+    }
+
+    private void tarefaExiste(Long id) {
+        if (!tarefaRepository.existsById(id)) {
+            throw new NotFoundException("Tarefa não encontrada!");
+        }
     }
 }
